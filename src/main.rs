@@ -8,9 +8,6 @@ fn main() {
             .expect("Failed to read line");
         let words: Vec<&str> = input.split_whitespace().collect();
         let mut iterator = words.into_iter();
-        //list_dir.status().expect("process failed to execute");
-        //println!("{:?}", words);
-        //println!("{:?}", iterator.next());
         let mut list_dir;
         match iterator.next() {
             Some(command) => list_dir = Command::new(command),
@@ -21,11 +18,4 @@ fn main() {
         }
         list_dir.status().expect("Fallo");
     }
-    /* let output = Command::new("sh")
-       .arg("-c")
-       .arg("echo hello")
-       .output()
-       .expect("failed to execute process");
-       let hello = output.stdout;
-       println!("{:?}",hello);*/
 }
