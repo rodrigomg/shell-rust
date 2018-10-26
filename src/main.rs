@@ -24,10 +24,5 @@ fn main() {
             Err(e) => println!("{:?}", e),
 
         }
-        //let status = command.status().expect("Fallo");
-        //match status.code() {
-        //    Some(code) => println!("Exited with status code: {}", code),
-        //    None       => println!("Process terminated by signal")
-        //}
     }
 }
