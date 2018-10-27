@@ -15,8 +15,16 @@ fn split_commands(input: &str) -> Vec<&str> {
     input.split(';').collect()
 }
 
-fn exec_the_command(command: &str) {
-    let words: Vec<&str> = command.split_whitespace().collect();
+fn exec_the_command(string_command: &str) {
+    let mut command_executor = build_the_command(&string_command);
+    match command_executor.spawn() {
+        Ok(_) => println!("cool"),
+        Err(e) => println!("{:?}", e),
+    }
+}
+
+fn build_the_command(string_command: &str) -> Command {
+    let words: Vec<&str> = string_command.split_whitespace().collect();
     let mut iterator = words.into_iter();
 
     let mut command_executor;
@@ -27,19 +35,15 @@ fn exec_the_command(command: &str) {
     for e in iterator {
         command_executor.arg(e);
     }
-    match command_executor.spawn() {
-        Ok(_) => println!("cool"),
-        Err(e) => println!("{:?}", e),
-
-    }
+    command_executor
 }
 
 fn main() {
     loop{
         let input = get_input();
         let commands: Vec<&str> = split_commands(&input);
-        for command in commands {
-            exec_the_command(&command)
+        for string_command in commands {
+            exec_the_command(&string_command)
         }
     }
 }
