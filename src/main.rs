@@ -18,7 +18,7 @@ fn split_commands(input: &str) -> Vec<&str> {
 fn exec_the_command(string_command: &str) {
     let mut command_executor = build_the_command(&string_command);
     match command_executor.spawn() {
-        Ok(_) => println!("cool"),
+        Ok(_) => print!(""),
         Err(e) => println!("{:?}", e),
     }
 }
