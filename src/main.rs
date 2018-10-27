@@ -9,8 +9,12 @@ fn main() {
         let mut input = String::new();
         io::stdin().read_line(&mut input)
             .expect("Failed to read line");
-        let words: Vec<&str> = input.split_whitespace().collect();
-        let mut iterator = words.into_iter();
+        let commands: Vec<&str> = input.split(';').collect();
+        for command in commands {
+            let words: Vec<&str> = command.split_whitespace().collect();
+            let mut iterator = words.into_iter();
+            println!("{:?}",iterator);
+        }
         let mut command;
         match iterator.next() {
             Some(arg) => command = Command::new(arg),
