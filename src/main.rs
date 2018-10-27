@@ -13,20 +13,20 @@ fn main() {
         for command in commands {
             let words: Vec<&str> = command.split_whitespace().collect();
             let mut iterator = words.into_iter();
-            println!("{:?}",iterator);
-        }
-        let mut command;
-        match iterator.next() {
-            Some(arg) => command = Command::new(arg),
-            None => command = Command::new("clear")
-        }
-        for e in iterator {
-            command.arg(e);
-        }
-        match command.spawn() {
-            Ok(_) => println!("cool"),
-            Err(e) => println!("{:?}", e),
 
+            let mut command_executor;
+            match iterator.next() {
+                Some(arg) => command_executor = Command::new(arg),
+                None => command_executor = Command::new("clear")
+            }
+            for e in iterator {
+                command_executor.arg(e);
+            }
+            match command_executor.spawn() {
+                Ok(_) => println!("cool"),
+                Err(e) => println!("{:?}", e),
+
+            }
         }
     }
 }
