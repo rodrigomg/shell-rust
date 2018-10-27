@@ -2,6 +2,11 @@ use std::io;
 use std::io::Write;
 use std::process::Command;
 
+struct Cmd<'a> {
+    binary: &'a str,
+    args: Vec<&'a str>,
+}
+
 fn get_input() -> String {
     print!(">_ ");
     io::stdout().flush().ok().expect("Could not flush stdout");
