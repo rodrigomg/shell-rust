@@ -38,12 +38,16 @@ fn build_the_command(string_command: &str) -> Command {
     command_executor
 }
 
+fn exec_commands(commands: Vec<&str>) {
+    for string_command in commands {
+        exec_the_command(&string_command)
+    }
+}
+
 fn main() {
     loop{
         let input = get_input();
         let commands: Vec<&str> = split_commands(&input);
-        for string_command in commands {
-            exec_the_command(&string_command)
-        }
+        exec_commands(commands);
     }
 }
