@@ -9,22 +9,24 @@ struct Cmd<'a> {
 }
 
 trait Executable {
-    fn new(string_command: &str) -> Cmd;
+    fn new(string_command: str) -> Cmd;
     fn build_the_command(&self) -> Command;
 }
 
-impl<'a> Executable for Cmd<'a> {
-    fn new(string_command: &str) -> Cmd {
+impl Excecutable for Cmd {
+    fn new(string_command: str) -> Cmd {
         let mut words: Vec<&str> = string_command.split_whitespace().collect();
         let modifiers: Vec<&str> = words.drain(1..).collect();
-        Cmd {
+        let cmd = Cmd {
             binary: words[1],
             args: modifiers,
-        }
+        };
+        cmd
     }
     fn build_the_command(&self) -> Command {
         let mut command_executor = Command::new(self.binary);
-        for e in &self.args {
+        let mut iterator = self.args.into_iter();
+        for e in iterator {
             command_executor.arg(e);
         };
         command_executor
@@ -45,18 +47,16 @@ fn split_commands(input: &str) -> Vec<&str> {
 }
 
 fn exec_the_command(string_command: &str) {
-    //let mut command_executor = build_the_command(&string_command);
-    //match command_executor.spawn() {
-    //    Ok(_) => print!(""),
-    //    Err(e) => println!("{:?}", e),
-    //}
+    let mut command_executor = build_the_command(&string_command);
+    match command_executor.spawn() {
+        Ok(_) => print!(""),
+        Err(e) => println!("{:?}", e),
+    }
 }
 
 fn exec_commands(commands: Vec<&str>) {
     for string_command in commands {
-        let cmd = Cmd::new(string_command);
-        //exec_the_command(&string_command)
-        println!("{:?}", cmd);
+        exec_the_command(&string_command)
     }
 }
 
